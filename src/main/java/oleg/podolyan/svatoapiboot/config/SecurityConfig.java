@@ -66,29 +66,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         super.configure(web);
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
-        .antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest()
-        .authenticated();
-    }
-
 //    @Override
 //    protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-////                .antMatchers("/**")
-//                .antMatchers(PUBLIC_MATCHERS)
-//                .permitAll().anyRequest().authenticated();
-//        http
-//                .csrf().disable().cors().disable()
-//                .formLogin().failureUrl("/index?error").defaultSuccessUrl("/index").loginPage("/index").permitAll()
-//                .and()
-//                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/index?loguot").deleteCookies("remember-me").permitAll()
-//                .and()
-//                .rememberMe();
+//        http.csrf().disable().cors().disable().httpBasic().and().authorizeRequests()
+//        .antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest()
+//        .authenticated();
 //    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+//                .antMatchers("/**")
+                .antMatchers(PUBLIC_MATCHERS)
+                .permitAll().anyRequest().authenticated();
+        http
+                .csrf().disable().cors().disable()
+                .formLogin().failureUrl("/index?error").defaultSuccessUrl("/index").loginPage("/index").permitAll()
+                .and()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/index?loguot").deleteCookies("remember-me").permitAll()
+                .and()
+                .rememberMe();
+    }
 
     @Bean
     public HttpSessionStrategy httpSessionStrategy(){
