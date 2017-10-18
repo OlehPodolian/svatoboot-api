@@ -21,7 +21,7 @@ public class OfficialBuilderImpl implements VisitorBuilder<Official> {
         official.setContactDetails(contactDetails);
         official.setRange(Range.getRange(range));
         official.setType(OfficialType.getType(type));
-        official.getUserRoles().add(new UserRole(official, new Role(Roles.ROLE_OFFICIAL.toString())));
+        official.getUserRoles().add(new UserRole(official, new Role(RoleType.ROLE_OFFICIAL.toString())));
         return official;
     }
 }

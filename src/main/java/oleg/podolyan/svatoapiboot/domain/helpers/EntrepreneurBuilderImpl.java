@@ -3,7 +3,7 @@ package oleg.podolyan.svatoapiboot.domain.helpers;
 import oleg.podolyan.svatoapiboot.domain.Entrepreneur;
 import oleg.podolyan.svatoapiboot.domain.enums.EntrepreneurType;
 import oleg.podolyan.svatoapiboot.domain.enums.Range;
-import oleg.podolyan.svatoapiboot.domain.enums.Roles;
+import oleg.podolyan.svatoapiboot.domain.enums.RoleType;
 import oleg.podolyan.svatoapiboot.domain.security.Role;
 import oleg.podolyan.svatoapiboot.domain.security.UserRole;
 
@@ -22,7 +22,7 @@ public class EntrepreneurBuilderImpl implements VisitorBuilder<Entrepreneur>{
         entrepreneur.setRange(Range.getRange(range));
         entrepreneur.setContactDetails(contactDetails);
         entrepreneur.setType(EntrepreneurType.getType(type));
-        entrepreneur.getUserRoles().add(new UserRole(entrepreneur, new Role(Roles.ROLE_ENTREPRENEUR.toString())));
+        entrepreneur.getUserRoles().add(new UserRole(entrepreneur, new Role(RoleType.ROLE_ENTREPRENEUR.toString())));
         return entrepreneur;
     }
 

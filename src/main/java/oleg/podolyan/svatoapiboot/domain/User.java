@@ -172,7 +172,7 @@ public abstract class User implements UserDetails, Serializable {
     public void setLocality(String locality) {
         this.locality = locality;
     }
-    
+
 
     @Override
     public boolean equals(Object o) {
