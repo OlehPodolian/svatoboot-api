@@ -24,11 +24,11 @@ public abstract class User implements UserDetails, Serializable {
     private Long userId;
     private String username;
     private String password;
-//    private String firstName;
-//    private String lastName;
     private String phone;
     private String email;
     private String locality;
+
+    private String resetToken;
 
     private String iconPath;
 
@@ -41,23 +41,8 @@ public abstract class User implements UserDetails, Serializable {
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
-//    @ElementCollection
-//    private Set<Long> friends = new HashSet<>();
-//    @ElementCollection
-//    private Set<Long> projects = new HashSet<>();
     @ElementCollection
     private Set<String> tags = new HashSet<>();
-//    @ElementCollection
-//    private Set<Long> appointments = new HashSet<>();
-//    @ElementCollection
-//    private Set<Long> rejectedPublishers = new HashSet<>();
-
-
-//    protected User(){}
-//
-//    public static User getInstance(){
-//        return new User();
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -112,22 +97,6 @@ public abstract class User implements UserDetails, Serializable {
         this.password = password;
     }
 
-//    public String getFirstName() {
-//        return firstName;
-//    }
-//
-//    public void setFirstName(String firstName) {
-//        this.firstName = firstName;
-//    }
-//
-//    public String getLastName() {
-//        return lastName;
-//    }
-//
-//    public void setLastName(String lastName) {
-//        this.lastName = lastName;
-//    }
-
     public String getPhone() {
         return phone;
     }
@@ -172,22 +141,6 @@ public abstract class User implements UserDetails, Serializable {
         this.userRoles = userRoles;
     }
 
-//    public Set<Long> getFriends() {
-//        return friends;
-//    }
-//
-//    public void setFriends(Set<Long> friends) {
-//        this.friends = friends;
-//    }
-//
-//    public Set<Long> getProjects() {
-//        return projects;
-//    }
-//
-//    public void setProjects(Set<Long> projects) {
-//        this.projects = projects;
-//    }
-
     public Set<String> getTags() {
         return tags;
     }
@@ -196,13 +149,13 @@ public abstract class User implements UserDetails, Serializable {
         this.tags = tags;
     }
 
-//    public Set<Long> getAppointments() {
-//        return appointments;
-//    }
-//
-//    public void setAppointments(Set<Long> appointments) {
-//        this.appointments = appointments;
-//    }
+    public String getResetToken() {
+        return resetToken;
+    }
+
+    public void setResetToken(String resetToken) {
+        this.resetToken = resetToken;
+    }
 
     public String getIconPath() {
         return iconPath;
@@ -219,14 +172,7 @@ public abstract class User implements UserDetails, Serializable {
     public void setLocality(String locality) {
         this.locality = locality;
     }
-
-//    public Set<Long> getRejectedPublishers() {
-//        return rejectedPublishers;
-//    }
-//
-//    public void setRejectedPublishers(Set<Long> rejectedPublishers) {
-//        this.rejectedPublishers = rejectedPublishers;
-//    }
+    
 
     @Override
     public boolean equals(Object o) {
