@@ -14,12 +14,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public abstract class User implements UserDetails, Serializable {
-
-    private static final long serialVersionUID = 4444L;
+public abstract class User implements UserDetails {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.TABLE)
     @Column(name = "id", updatable = false, nullable = false)
     private Long userId;
     private String username;
@@ -32,7 +30,7 @@ public abstract class User implements UserDetails, Serializable {
 
     private String iconPath;
 
-    private boolean enabled = true; // Change in production
+    private boolean enabled = true; // TODO Change when ready
     private boolean phoneDisplayed = true;
 
     private LocalDate dob;
