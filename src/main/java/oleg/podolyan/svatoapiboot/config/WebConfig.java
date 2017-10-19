@@ -23,9 +23,11 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         return resolver;
     }
 
-    private ITemplateEngine templateEngine() {
+    @Bean
+    public ITemplateEngine templateEngine() {
         SpringTemplateEngine springTemplateEngine = new SpringTemplateEngine();
         springTemplateEngine.setTemplateResolver(templateResolver());
+        springTemplateEngine.addDialect(java8TimeDialect());
         return springTemplateEngine;
     }
 
@@ -34,6 +36,8 @@ public class WebConfig extends WebMvcConfigurerAdapter{
         resolver.setTemplateMode(TemplateMode.HTML);
         resolver.setCharacterEncoding("UTF-8");
         resolver.setCacheable(false);       // in develop mode
+        resolver.setPrefix("classpath:/templates/");
+        resolver.setSuffix("html");
         return resolver;
     }
 
