@@ -1,12 +1,15 @@
 package oleg.podolyan.svatoapiboot.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import oleg.podolyan.svatoapiboot.domain.enums.UserType;
 import oleg.podolyan.svatoapiboot.domain.security.Authority;
 import oleg.podolyan.svatoapiboot.domain.security.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Collection;
@@ -16,18 +19,28 @@ import java.util.Set;
 @Entity
 public class User implements UserDetails, Serializable {
 
+    private static final long serialVersionUID = 11111111L;
+
     @Id
     @GeneratedValue
     @Column(name = "id", updatable = false, nullable = false)
     private Long userId;
+    @NotNull
+    @Size(min=2)
     private String username;
     private String password;
+    @NotNull
     private String fullName;
+    @NotNull
     private String email;
     private String phone;
+    @NotNull
     private String locality;
 
     private String iconPath;
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     private boolean enabled = true;         // TODO Change when ready
     private boolean phoneDisplayed = true;  // TODO Change when ready
@@ -206,6 +219,18 @@ public class User implements UserDetails, Serializable {
 
     public void setGroupsIds(Set<Long> groupsIds) {
         this.groupsIds = groupsIds;
+    }
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+
+    public void setUserType(String userType) {
+        setUserType(UserType.getUserType(userType));
     }
 
     @Override
