@@ -14,33 +14,46 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public abstract class User implements UserDetails {
+public class User implements UserDetails, Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue
     @Column(name = "id", updatable = false, nullable = false)
     private Long userId;
     private String username;
     private String password;
-    private String phone;
+    private String fullName;
     private String email;
+    private String phone;
     private String locality;
-
-    private String resetToken;
 
     private String iconPath;
 
-    private boolean enabled = true; // TODO Change when ready
-    private boolean phoneDisplayed = true;
+    private boolean enabled = true;         // TODO Change when ready
+    private boolean phoneDisplayed = true;  // TODO Change when ready
 
     private LocalDate dob;
+    private LocalDate created = LocalDate.now();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
     private Set<UserRole> userRoles = new HashSet<>();
 
     @ElementCollection
+    private Set<String> friendsNames = new HashSet<>();
+
+    @ElementCollection
+    private Set<Long> groupsIds = new HashSet<>();
+
+    @ElementCollection
     private Set<String> tags = new HashSet<>();
+
+    private User(){}
+
+    @Transient
+    public static User getInstance(){
+        return new User();
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -147,14 +160,6 @@ public abstract class User implements UserDetails {
         this.tags = tags;
     }
 
-    public String getResetToken() {
-        return resetToken;
-    }
-
-    public void setResetToken(String resetToken) {
-        this.resetToken = resetToken;
-    }
-
     public String getIconPath() {
         return iconPath;
     }
@@ -171,6 +176,37 @@ public abstract class User implements UserDetails {
         this.locality = locality;
     }
 
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public LocalDate getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDate created) {
+        this.created = created;
+    }
+
+    public Set<String> getFriendsNames() {
+        return friendsNames;
+    }
+
+    public void setFriendsNames(Set<String> friendsNames) {
+        this.friendsNames = friendsNames;
+    }
+
+    public Set<Long> getGroupsIds() {
+        return groupsIds;
+    }
+
+    public void setGroupsIds(Set<Long> groupsIds) {
+        this.groupsIds = groupsIds;
+    }
 
     @Override
     public boolean equals(Object o) {
