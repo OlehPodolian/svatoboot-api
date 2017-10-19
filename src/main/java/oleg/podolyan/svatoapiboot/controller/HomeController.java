@@ -1,11 +1,12 @@
 package oleg.podolyan.svatoapiboot.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
-@org.springframework.stereotype.Controller
-public class Controller {
+@Controller
+public class HomeController {
 
     @RequestMapping("/")
     public String index(Principal principal){
